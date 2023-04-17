@@ -51,7 +51,7 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable(value = "id" ) Long id){
         categoryService.deleteCategory(id);
-        return new ResponseEntity<>(new ApiResponse("Successfully deleted user with id :"+id,true),HttpStatus.OK);
+        return new ResponseEntity<>(new ApiResponse("Successfully deleted category with id :"+id,true),HttpStatus.OK);
 
     }
 

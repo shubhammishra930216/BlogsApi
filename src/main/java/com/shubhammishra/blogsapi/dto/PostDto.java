@@ -1,7 +1,9 @@
 package com.shubhammishra.blogsapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.shubhammishra.blogsapi.entiities.Category;
 import com.shubhammishra.blogsapi.entiities.User;
+import com.shubhammishra.blogsapi.view.View;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,15 +14,18 @@ import lombok.Setter;
 public class PostDto {
 
 
-    private String postId;
-    private String title;
-    private String content;
 
+    private String postId;
+
+    private String title;
+
+    private String content;
     private String imageName;
 
 
-
+    @JsonView(View.Category.class)
     private CategoryDto category;
 
+    @JsonView(View.User.class)
     private UserDto user;
 }

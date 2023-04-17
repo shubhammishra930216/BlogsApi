@@ -1,6 +1,5 @@
 package com.shubhammishra.blogsapi.services;
 
-import com.shubhammishra.blogsapi.dto.CategoryDto;
 import com.shubhammishra.blogsapi.dto.PostDto;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 public interface PostService {
     PostDto createPost(PostDto postDto,Long UserId,Long CategoryId);
 
-   /**
+
     PostDto updatePost(PostDto postDto,Long Id);
 
     List<PostDto> getAllPosts();
@@ -19,7 +18,9 @@ public interface PostService {
     List<PostDto> getPostsByCategory(Long categoryId);
 
     List<PostDto> getPostsByUser(Long userId);
-    **/
+
+    List<PostDto> getPostsByUserAndCategory(Long userId,Long categoryId);
+
 
 
 }

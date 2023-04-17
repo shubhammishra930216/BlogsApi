@@ -1,5 +1,7 @@
 package com.shubhammishra.blogsapi.entiities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.shubhammishra.blogsapi.view.View;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
