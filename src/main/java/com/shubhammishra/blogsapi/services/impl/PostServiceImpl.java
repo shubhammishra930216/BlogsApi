@@ -1,8 +1,6 @@
 package com.shubhammishra.blogsapi.services.impl;
 
-import com.shubhammishra.blogsapi.dto.CategoryDto;
 import com.shubhammishra.blogsapi.dto.PostDto;
-import com.shubhammishra.blogsapi.dto.UserDto;
 import com.shubhammishra.blogsapi.entiities.Category;
 import com.shubhammishra.blogsapi.entiities.Post;
 import com.shubhammishra.blogsapi.entiities.User;
@@ -13,6 +11,9 @@ import com.shubhammishra.blogsapi.repositories.UserRepository;
 import com.shubhammishra.blogsapi.services.PostService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,12 +72,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPosts() {
-        List<Post> post = postRepository.findAll();
+    public List<PostDto> getAllPosts(Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Page<Post> postPage = postRepository.findAll(pageable);
+        List<Post> post = postPage.getContent();
         List<PostDto> postDtos = post.stream().map(post1 -> modelMapper.map(post1,PostDto.class)).collect(Collectors.toList());
         return postDtos;
-
     }
+
 
     @Override
     public PostDto getPosById(Long Id) {
