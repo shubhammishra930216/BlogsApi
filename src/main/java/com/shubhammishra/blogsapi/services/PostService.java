@@ -1,6 +1,7 @@
 package com.shubhammishra.blogsapi.services;
 
 import com.shubhammishra.blogsapi.dto.PostDto;
+import com.shubhammishra.blogsapi.dto.PostPaginationDto;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface PostService {
     PostDto updatePost(PostDto postDto,Long Id);
 
 
-    List<PostDto> getAllPosts(Integer pageNumber, Integer pageSize);
+     PostPaginationDto getAllPosts(Integer pageNumber, Integer pageSize);
 
     PostDto getPosById(Long Id);
     void deletePost(Long Id);

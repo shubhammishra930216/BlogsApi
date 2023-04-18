@@ -2,6 +2,7 @@ package com.shubhammishra.blogsapi.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.shubhammishra.blogsapi.dto.PostDto;
+import com.shubhammishra.blogsapi.dto.PostPaginationDto;
 import com.shubhammishra.blogsapi.payloads.ApiResponse;
 import com.shubhammishra.blogsapi.services.impl.PostServiceImpl;
 import com.shubhammishra.blogsapi.view.View;
@@ -56,10 +57,10 @@ public class PostController {
     }
 
     @GetMapping("/posts/")
-    public ResponseEntity<List<PostDto>> getAllPosts(@RequestParam(value="pageNumber",defaultValue = "1",required = false) Integer pageNumber,
-                                                     @RequestParam(value="pageSize",defaultValue = "2",required = false) Integer pageSize){
-        List<PostDto> postDtos = postService.getAllPosts(pageNumber,pageSize);
-        return new ResponseEntity<>(postDtos,HttpStatus.OK);
+    public ResponseEntity<PostPaginationDto> getAllPosts(@RequestParam(value="pageNumber",defaultValue = "0",required = false) Integer pageNumber,
+                                                         @RequestParam(value="pageSize",defaultValue = "2",required = false) Integer pageSize){
+        PostPaginationDto postPaginationDto = postService.getAllPosts(pageNumber,pageSize);
+        return new ResponseEntity<>(postPaginationDto,HttpStatus.OK);
     }
 
     @GetMapping("/posts/{postId}")

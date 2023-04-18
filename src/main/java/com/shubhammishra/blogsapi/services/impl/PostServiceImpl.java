@@ -1,6 +1,7 @@
 package com.shubhammishra.blogsapi.services.impl;
 
 import com.shubhammishra.blogsapi.dto.PostDto;
+import com.shubhammishra.blogsapi.dto.PostPaginationDto;
 import com.shubhammishra.blogsapi.entiities.Category;
 import com.shubhammishra.blogsapi.entiities.Post;
 import com.shubhammishra.blogsapi.entiities.User;
@@ -72,12 +73,21 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPosts(Integer pageNumber, Integer pageSize) {
+    public PostPaginationDto getAllPosts(Integer pageNumber, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber,pageSize);
         Page<Post> postPage = postRepository.findAll(pageable);
         List<Post> post = postPage.getContent();
+
         List<PostDto> postDtos = post.stream().map(post1 -> modelMapper.map(post1,PostDto.class)).collect(Collectors.toList());
-        return postDtos;
+
+        PostPaginationDto postPaginationDto = new PostPaginationDto();
+        postPaginationDto.setContent(postDtos);
+        postPaginationDto.setPageNumber(postPage.getNumber());
+        postPaginationDto.setPageSize(postPage.getSize());
+        postPaginationDto.setTotalPages(postPage.getTotalPages());
+        postPaginationDto.setTotalElements(postPage.getTotalElements());
+        postPaginationDto.setLastPage(postPage.isLast());
+        return postPaginationDto;
     }
 
 
