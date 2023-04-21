@@ -12,7 +12,7 @@ public interface PostService {
     PostDto updatePost(PostDto postDto,Long Id);
 
 
-     PostPaginationDto getAllPosts(Integer pageNumber, Integer pageSize);
+     PostPaginationDto getAllPosts(Integer pageNumber, Integer pageSize,String sortBy,String sortOrder);
 
     PostDto getPosById(Long Id);
     void deletePost(Long Id);
@@ -22,6 +22,11 @@ public interface PostService {
     List<PostDto> getPostsByUser(Long userId);
 
     List<PostDto> getPostsByUserAndCategory(Long userId,Long categoryId);
+
+
+    PostPaginationDto searchPostsByTitle(String Keyword, Integer pageNumber, Integer pageSize);
+
+    PostPaginationDto searchPostsByContent(String Keyword);
 
 
 

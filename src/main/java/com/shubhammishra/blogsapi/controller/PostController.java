@@ -1,6 +1,7 @@
 package com.shubhammishra.blogsapi.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.shubhammishra.blogsapi.configurations.AppConstants;
 import com.shubhammishra.blogsapi.dto.PostDto;
 import com.shubhammishra.blogsapi.dto.PostPaginationDto;
 import com.shubhammishra.blogsapi.payloads.ApiResponse;
@@ -57,9 +58,19 @@ public class PostController {
     }
 
     @GetMapping("/posts/")
-    public ResponseEntity<PostPaginationDto> getAllPosts(@RequestParam(value="pageNumber",defaultValue = "0",required = false) Integer pageNumber,
-                                                         @RequestParam(value="pageSize",defaultValue = "2",required = false) Integer pageSize){
-        PostPaginationDto postPaginationDto = postService.getAllPosts(pageNumber,pageSize);
+    public ResponseEntity<PostPaginationDto> getAllPosts(@RequestParam(value="pageNumber",defaultValue = AppConstants.PAGE_NUMBER,required = false) Integer pageNumber,
+                                                         @RequestParam(value="pageSize",defaultValue = AppConstants.PAGE_SIZE,required = false) Integer pageSize,
+                                                         @RequestParam(value="sortBy" ,defaultValue = AppConstants.SORT_BY,required = false) String sortBy,
+                                                         @RequestParam(value="sortOrder" ,defaultValue = AppConstants.SORT_ORDER,required = false) String sortOrder){
+        PostPaginationDto postPaginationDto = postService.getAllPosts(pageNumber,pageSize,sortBy,sortOrder);
+        return new ResponseEntity<>(postPaginationDto,HttpStatus.OK);
+    }
+
+    @GetMapping("/posts/search/")
+    public ResponseEntity<PostPaginationDto> getPostsContainingTitle(@RequestParam(value="title",required = true) String title,
+                                                                     @RequestParam(value="pageNumber",defaultValue = AppConstants.PAGE_NUMBER,required = false) Integer pageNumber,
+                                                                     @RequestParam(value="pageSize",defaultValue = AppConstants.PAGE_SIZE,required = false) Integer pageSize){
+        PostPaginationDto postPaginationDto = postService.searchPostsByTitle(title,pageNumber,pageSize);
         return new ResponseEntity<>(postPaginationDto,HttpStatus.OK);
     }
 
