@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -41,6 +43,10 @@ public class Post {
 
     @ManyToOne
     private User user;
+
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Comments> comments = new ArrayList<>();
+
 
 
 }
