@@ -47,9 +47,9 @@ public class PostServiceImpl implements PostService {
     public PostDto createPost(PostDto postDto,Long userId,Long categoryId) {
         Post post = modelMapper.map(postDto,Post.class);
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId.toString()));
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", categoryId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", categoryId.toString()));
 
         post.setCategory(category);
         post.setUser(user);
@@ -65,7 +65,7 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public PostDto updatePost(PostDto postDto, Long Id) {
         Post post = postRepository.findById(Id)
-                .orElseThrow(() -> new ResourceNotFoundException("post", "post_id", Id));
+                .orElseThrow(() -> new ResourceNotFoundException("post", "post_id", Id.toString()));
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setImageName(postDto.getImageName());
@@ -102,7 +102,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto getPosById(Long Id) {
         Post post = postRepository.findById(Id)
-                .orElseThrow(() -> new ResourceNotFoundException("post", "post_id", Id));
+                .orElseThrow(() -> new ResourceNotFoundException("post", "post_id", Id.toString()));
 
         return modelMapper.map(post,PostDto.class);
     }
@@ -110,7 +110,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public void deletePost(Long Id) {
         Post post = postRepository.findById(Id)
-                .orElseThrow(() -> new ResourceNotFoundException("post", "post_id", Id));
+                .orElseThrow(() -> new ResourceNotFoundException("post", "post_id", Id.toString()));
         postRepository.deleteById(Id);
 
     }
@@ -119,7 +119,7 @@ public class PostServiceImpl implements PostService {
     public List<PostDto> getPostsByCategory(Long categoryId) {
 
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", categoryId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", categoryId.toString()));
         List<Post> post = postRepository.findByCategory(category);
         List<PostDto> postDtos = post.stream().map(post1 -> modelMapper.map(post1,PostDto.class)).collect(Collectors.toList());
         return postDtos;
@@ -128,7 +128,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostDto> getPostsByUser(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId.toString()));
         List<Post> post1 = postRepository.findByUser(user);
         List<PostDto> postDtos = post1.stream().map(post -> modelMapper.map(post,PostDto.class)).collect(Collectors.toList());
         return postDtos;
@@ -137,9 +137,9 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostDto> getPostsByUserAndCategory(Long userId, Long categoryId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId.toString()));
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", categoryId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", categoryId.toString()));
         List<Post> post1 = postRepository.findByUserAndCategory(user,category);
         List<PostDto> postDtos = post1.stream().map(post -> modelMapper.map(post,PostDto.class)).collect(Collectors.toList());
         return postDtos;

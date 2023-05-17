@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto userDto,Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId.toString()));
         //userDto.setId(userId);
         User updatedUser = userMapper.userDtoToEntity(userDto);
         User savedUser = userRepository.save(updatedUser);
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserById(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId.toString()));
 
         UserDto userDto = userMapper.userEntityToDto(user);
 
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUsers(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId.toString()));
         userRepository.deleteById(userId);
 
     }

@@ -23,6 +23,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ResourceFoundException.class)
+    public ResponseEntity<ApiResponse> resourceFoundException(ResourceFoundException ex){
+        String message = ex.getMessage();
+        ApiResponse apiResponse = new ApiResponse(message ,false);
+        return new ResponseEntity<>(apiResponse, HttpStatus.CONFLICT);
+    }
+
+
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> validationException(MethodArgumentNotValidException ex){
 

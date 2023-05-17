@@ -1,0 +1,10 @@
+version: '2'
+services:
+  database_service:
+    image: postgres:14.4
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=blogs

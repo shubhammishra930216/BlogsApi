@@ -1,11 +1,12 @@
 package com.shubhammishra.blogsapi.entiities;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table(name="categories")
-public class Category {
+public class Category extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")

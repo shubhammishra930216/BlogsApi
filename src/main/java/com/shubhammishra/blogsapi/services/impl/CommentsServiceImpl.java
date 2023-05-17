@@ -32,9 +32,9 @@ public class CommentsServiceImpl implements CommentService {
     @Override
     public CommentDto createComment(CommentDto commentDto,Long userId ,Long postId) {
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new ResourceNotFoundException("post", "postId", postId));
+                .orElseThrow(() -> new ResourceNotFoundException("post", "postId", postId.toString()));
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId.toString()));
 
         Comments comment = modelMapper.map(commentDto,Comments.class);
 
@@ -51,7 +51,7 @@ public class CommentsServiceImpl implements CommentService {
     public void deleteComment(Long commentId) {
 
         Comments comments = commentRepository.findById(commentId)
-                .orElseThrow(() -> new ResourceNotFoundException("comment", "comment_id", commentId));
+                .orElseThrow(() -> new ResourceNotFoundException("comment", "comment_id", commentId.toString()));
         commentRepository.deleteById(commentId);
 
     }

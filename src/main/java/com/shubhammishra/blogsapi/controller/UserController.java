@@ -3,13 +3,14 @@ package com.shubhammishra.blogsapi.controller;
 import com.shubhammishra.blogsapi.dto.UserDto;
 import com.shubhammishra.blogsapi.payloads.ApiResponse;
 import com.shubhammishra.blogsapi.services.impl.UserServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Null;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -45,6 +46,7 @@ public class UserController {
 
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @PutMapping("/{id}")
     public ResponseEntity<UserDto> updateUserById(@Valid @RequestBody UserDto user,@PathVariable(value = "id" ) Long id){
         UserDto userDto = userService.updateUser(user,id);

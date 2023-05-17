@@ -2,12 +2,13 @@ package com.shubhammishra.blogsapi.entiities;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.shubhammishra.blogsapi.view.View;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table(name = "posts")
-public class Post {
+public class Post extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
