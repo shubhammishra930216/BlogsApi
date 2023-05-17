@@ -4,12 +4,12 @@ import com.shubhammishra.blogsapi.dto.CategoryDto;
 import com.shubhammishra.blogsapi.dto.UserDto;
 import com.shubhammishra.blogsapi.payloads.ApiResponse;
 import com.shubhammishra.blogsapi.services.impl.CategoryServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -42,7 +42,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDto> updateCategoryById(@Valid @RequestBody CategoryDto categoryDto,@PathVariable(value = "id" ) Long id){
+    public ResponseEntity<CategoryDto> updateCategoryById(@Valid @RequestBody CategoryDto categoryDto, @PathVariable(value = "id" ) Long id){
         CategoryDto categoryDto1 = categoryService.updateCategory(categoryDto,id);
         return new ResponseEntity<>(categoryDto1, HttpStatus.ACCEPTED);
 
